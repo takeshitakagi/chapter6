@@ -1,6 +1,7 @@
 import { posts } from './data';
 import PostListItem from "./PostListItem";
 
+// 記事をリストで表示するコンポーネント
 function PostList() {
 
   return (

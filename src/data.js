@@ -1,4 +1,4 @@
-// /src/data/posts.js
+// 記事データ
 export const posts = [
   {
     id: 1,

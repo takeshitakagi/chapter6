@@ -1,14 +1,14 @@
+// 記事一覧画面に表示される記事サムネイルコンポーネント
 function PostListItem({ post }) {
 
-
-  console.log(post);
-
+  // 記事作成日時フォーマット
   const date = new Date(post.createdAt);
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDay();
   const formattedDate = `${year}/${month}/${day}`;
 
+  // サムネイルに表示される本文を制御
   const maxLength = 60;
   const truncatedContent = post.content.substring(0, maxLength);
   const finalContent = post.content.length > maxLength ? truncatedContent + '...' : post.content;
