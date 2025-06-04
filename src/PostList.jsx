@@ -7,7 +7,7 @@ function PostList() {
   return (
     <div>
       {posts.map((post) => (
-        <li>
+        <li class='list-none mt-5'>
           <PostListItem post={post} />
         </li>
       ))}
