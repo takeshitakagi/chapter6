@@ -1,15 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import PostList from './PostList'
+import Header from './Header'
+import Post from './Post'
+import TopPage from './TopPage'
+import { Routes, Route } from 'react-router-dom'
 
 function App() {
 
   return (
-    <div class='bg-white min-h-screen min-w-screen'>
-    <PostList />
-    </div>
+    <>
+      <div>
+        <Header />
+      </div>
+
+      <Routes>
+        <Route path="/" element={<TopPage />} />
+        <Route path="/TopPage/:id" element={<Post />} />
+      </Routes>
+    </>
   )
 }
 
