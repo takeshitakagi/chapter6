@@ -9,7 +9,7 @@ function PostListItem({ post }) {
   return (
 
     <>
-      <Link to={`/Posts/${post.id}`}>
+      <Link to={`/posts/${post.id}`}>
         <div class='p-9 border border-gray-500'>
             <div class='flex justify-between mx-auto mb-3'>
             <p class='text-gray-500 text-sm'>{formattedDate}</p>
