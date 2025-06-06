@@ -14,7 +14,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<TopPage />} />
-        <Route path="/Posts/:id" element={<Post />} />
+        <Route path="/posts/:id" element={<Post />} />
       </Routes>
     </>
   )
