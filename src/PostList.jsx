@@ -5,19 +5,32 @@ import PostListItem from "./PostListItem";
 function PostList() {
 
   const [posts, setPosts] = useState([]);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetcher = async () => {
-      const res = await fetch("https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts")
-      const data = await res.json()
-      setPosts(data.posts)
+      try {
+        const res = await fetch("https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts")
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const data = await res.json()
+        setPosts(data.posts)
+      } catch (error) {
+        console.error("一覧の取得に失敗しました:", error);
+        setPosts([]);
+        setError(true);
+      }
     }
 
     fetcher()
   }, [])
 
-  console.log(posts);
-
+  if (error) {
+    return (
+      <div class='text-center text-3xl mt-16'>エラーが発生しました。</div>
+    );
+  }
 
 
   return (
