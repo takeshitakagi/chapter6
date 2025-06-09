@@ -35,7 +35,7 @@ function Post() {
 
   if (error) {
     return (
-      <div class='text-center text-3xl mt-16'>記事が見つかりませんでした。</div>
+      <div class='text-center text-3xl mt-16'>エラーが発生しました。</div>
     );
   }
 
