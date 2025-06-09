@@ -6,10 +6,13 @@ function Post() {
   const { id } = useParams();
 
   const [postData, setPostData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetcher = async () => {
+      setIsLoading(false);
+      setError(false);
       if (id) {
         try {
           const res = await fetch(`https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts/${id}`)
@@ -23,6 +26,8 @@ function Post() {
           console.error("記事の取得に失敗しました:", error);
           setPostData(null);
           setError(true);
+        } finally {
+          setIsLoading(true);
         }
       } else {
         console.log("IDがまだ取得できていません。APIを呼び出しません。");
@@ -32,6 +37,11 @@ function Post() {
     fetcher()
   }, [id])
 
+  if (!isLoading) {
+    return (
+      <div>記事を読み込み中...</div>
+    );
+  }
 
   if (error) {
     return (
@@ -39,11 +49,6 @@ function Post() {
     );
   }
 
-  if (!postData) {
-    return (
-      <div>記事を読み込み中...</div>
-    );
-  }
 
   const post = postData;
   const formattedDate = formatDate(post.createdAt);
