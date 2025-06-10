@@ -7,7 +7,9 @@ function Header() {
         <Link to="/">
           <p class='text-white text-xl font-bold'>blog</p>
         </Link>
-        <p class='text-white text-xl  font-bold'>お問い合せ</p>
+        <Link to="/contact">
+          <p class='text-white text-xl  font-bold'>お問い合せ</p>
+        </Link>
       </div>
     </div>
   );
