@@ -9,7 +9,9 @@ function Contact() {
     register,
     handleSubmit,
     reset,
-    formState: { errors }
+    formState: {
+      errors,
+      isSubmitting }
   } = useForm({
     defaultValues: {
       name: "",
@@ -19,12 +21,10 @@ function Contact() {
     resolver: zodResolver(validationSchema)
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState(null);
   const [apiError, setApiError] = useState(null);
 
   const onSubmit = async (data) => {
-    setIsSubmitting(true);
     setSubmitMessage(null);
     setApiError(null);
 
@@ -55,7 +55,6 @@ function Contact() {
     } catch (err) {
       console.error("お問合せフォームの送信中にエラーが発生しました：", err);
       setApiError(`送信中にエラーが発生しました： ${err.message}`);
-      setIsSubmitting(false);
     }
   };
 
@@ -127,6 +126,7 @@ function Contact() {
               class='bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded'>{isSubmitting ? '送信中...' : '送信'}</button>
             <button
               type="button"
+              disabled={isSubmitting}
               onClick={handleReset}
               class='bg-gray-300 hover:bg-gray-400 text-gray-900 font-bold py-2 px-4 rounded'>クリア</button>
           </div>
