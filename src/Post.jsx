@@ -1,19 +1,56 @@
 import { useParams } from "react-router-dom";
-import { posts } from './data';
 import { formatDate } from "./formatData";
+import { useEffect, useState } from "react";
 
 function Post() {
   const { id } = useParams();
-  console.log(id);
 
-  const post = posts.find((post) => post.id === parseInt(id))
-  if (!post) {
+  const [postData, setPostData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    const fetcher = async () => {
+      setIsLoading(false);
+      setError(false);
+      if (id) {
+        try {
+          const res = await fetch(`https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts/${id}`)
+
+          if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+          }
+          const data = await res.json();
+          setPostData(data.post);
+        } catch (error) {
+          console.error("記事の取得に失敗しました:", error);
+          setPostData(null);
+          setError(true);
+        } finally {
+          setIsLoading(true);
+        }
+      } else {
+        console.log("IDがまだ取得できていません。APIを呼び出しません。");
+      }
+    }
+
+    fetcher()
+  }, [id])
+
+  if (!isLoading) {
     return (
-      <div class='text-center text-3xl mt-16'>記事が見つかりませんでした。</div>
-
+      <div>記事を読み込み中...</div>
     );
   }
 
+  if (error) {
+    return (
+      <div class='text-center text-3xl mt-16'>エラーが発生しました。</div>
+    );
+  }
+
+
+  const post = postData;
   const formattedDate = formatDate(post.createdAt);
 
   return (
